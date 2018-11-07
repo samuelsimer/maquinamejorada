@@ -91,11 +91,17 @@ public class MaquinaExpendedoraMejorada {
      * devuelve el valor que habia en la maquina.
      */
     public int vaciarDineroDeLaMaquina () {
+        if(balanceClienteActual <= 0){
         int cantidadDineroDeLaMaquina;
         cantidadDineroDeLaMaquina = totalDineroAcumulado;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         return cantidadDineroDeLaMaquina;
     }
-        
+    else{
+        //mensaje de error
+        System.out.println("Hubo un error en la maquina, vuelva a intentarlo mas tarde");
+        return -1;
+    } 
+}        
 }
