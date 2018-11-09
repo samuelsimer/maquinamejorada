@@ -10,18 +10,21 @@ public class MaquinaExpendedoraMejorada {
     private String estacionOrigen;
     // El destino del billete
     private String estacionDestino;
+    //El billete con premio
+    private boolean maquinaPremio;
 
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean maquinaPremiada) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
+        maquinaPremio = maquinaPremiada;
     }
 
     /**
@@ -67,6 +70,15 @@ public class MaquinaExpendedoraMejorada {
             totalDineroAcumulado = totalDineroAcumulado + precioBillete;
             // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
             balanceClienteActual = balanceClienteActual - precioBillete;
+            if(maquinaPremio == true) {
+            // Simula la impresion de un billete con premio
+            System.out.println("##################");
+            System.out.println("# Billete con premio:");
+            System.out.println("# De " + estacionOrigen + " a " + estacionDestino);
+            System.out.println("# " + precioBillete + " euros.");
+            System.out.println("##################");
+            System.out.println();
+            }
         }
         else {
             System.out.println("Necesitas introducir " + (precioBillete - balanceClienteActual) + " euros mas!");
@@ -91,17 +103,15 @@ public class MaquinaExpendedoraMejorada {
      * devuelve el valor que habia en la maquina.
      */
     public int vaciarDineroDeLaMaquina () {
-        if(balanceClienteActual <= 0){
-        int cantidadDineroDeLaMaquina;
+        int cantidadDineroDeLaMaquina = -1;
+        if(balanceClienteActual == 0){
         cantidadDineroDeLaMaquina = totalDineroAcumulado;
-        balanceClienteActual = 0;
         totalDineroAcumulado = 0;
-        return cantidadDineroDeLaMaquina;
-    }
-    else{
+        }
+        else{
         //mensaje de error
         System.out.println("Hubo un error en la maquina, vuelva a intentarlo mas tarde");
-        return -1;
-    } 
-}        
+        } 
+        return cantidadDineroDeLaMaquina;
+    }        
 }
