@@ -10,21 +10,27 @@ public class MaquinaExpendedoraMejorada {
     private String estacionOrigen;
     // El destino del billete
     private String estacionDestino;
-    //El billete con premio
+    // El billete con premio
     private boolean maquinaPremio;
+    // Esto es el contador
+    private int contador;
+    // Maximo del contador
+    private int maximo;
 
     /**
      * Crea una maquina expendedora de billetes de tren con el 
      * precio del billete y el origen y destino dados. Se asume que el precio
      * del billete que se recibe es mayor que 0.
      */
-    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean maquinaPremiada) {
+    public MaquinaExpendedoraMejorada(int precioDelBillete, String origen, String destino, boolean maquinaPremiada, int maximoContador) {
         precioBillete = precioDelBillete;
         balanceClienteActual = 0;
         totalDineroAcumulado = 0;
         estacionOrigen = origen;
         estacionDestino = destino;
         maquinaPremio = maquinaPremiada;
+        contador = 0;
+        maximoContador = maximo;
     }
 
     /**
@@ -45,7 +51,10 @@ public class MaquinaExpendedoraMejorada {
      * Simula la introduccion de dinero por parte del cliente actual
      */
     public void introducirDinero(int cantidadIntroducida) {
-        if(cantidadIntroducida > 0) {
+        if (contador == maximo) {
+        System.out.println("No quedan billetes por vender");
+        }
+        else if(cantidadIntroducida > 0) {
             balanceClienteActual = balanceClienteActual + cantidadIntroducida;
         }
         else {
@@ -70,6 +79,7 @@ public class MaquinaExpendedoraMejorada {
             totalDineroAcumulado = totalDineroAcumulado + precioBillete;
             // Reduce el balance del cliente actual dejandole seguir utilizando la maquina
             balanceClienteActual = balanceClienteActual - precioBillete;
+            contador = contador + 1;
             if(maquinaPremio == true) {
             // Simula la impresion de un billete con premio
             System.out.println("##################");
